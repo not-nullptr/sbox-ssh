@@ -8,6 +8,15 @@ use std::{io, io::Write, path::PathBuf};
 use video_rs::Decoder;
 
 fn main() -> anyhow::Result<()> {
+    // make sure we clean up terminal on exit
+    crossterm::terminal::enable_raw_mode()?;
+    std::panic::set_hook(Box::new(|_| {
+        let _ = crossterm::terminal::disable_raw_mode();
+    }));
+    let _ = ctrlc::set_handler(|| {
+        let _ = crossterm::terminal::disable_raw_mode();
+        std::process::exit(0);
+    });
     video_rs::init().map_err(|e| anyhow::anyhow!("{}", e))?;
     // read source
     let source = "video.mp4".parse::<PathBuf>()?;
