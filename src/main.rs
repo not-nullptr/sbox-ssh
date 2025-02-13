@@ -13,10 +13,6 @@ fn main() -> anyhow::Result<()> {
     std::panic::set_hook(Box::new(|_| {
         let _ = crossterm::terminal::disable_raw_mode();
     }));
-    let _ = ctrlc::set_handler(|| {
-        let _ = crossterm::terminal::disable_raw_mode();
-        std::process::exit(0);
-    });
     video_rs::init().map_err(|e| anyhow::anyhow!("{}", e))?;
     // read source
     let source = "video.mp4".parse::<PathBuf>()?;

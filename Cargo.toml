@@ -6,6 +6,5 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.95"
 crossterm = "0.28.1"
-ctrlc = "3.4.5"
 image = "0.25.5"
 video-rs = "0.10.3"
